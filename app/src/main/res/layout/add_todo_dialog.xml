@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- 待办事项内容输入框 -->
+    <EditText
+        android:id="@+id/todo_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入待办事项内容"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:background="@android:drawable/edit_text"
+        android:inputType="text"
+        android:maxLines="3" />
+
+    <!-- 文字颜色选择 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="选择文字颜色"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:paddingBottom="8dp" />
+
+        <LinearLayout
+            android:id="@+id/color_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <!-- 红色 -->
+            <ImageView
+                android:id="@+id/color_red"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/color_circle_red"
+                android:background="@drawable/color_picker_item"
+                android:padding="4dp"
+                android:contentDescription="红色" />
+
+            <!-- 蓝色 -->
+            <ImageView
+                android:id="@+id/color_blue"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/color_circle_blue"
+                android:background="@drawable/color_picker_item"
+                android:padding="4dp"
+                android:contentDescription="蓝色" />
+
+            <!-- 绿色 -->
+            <ImageView
+                android:id="@+id/color_green"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/color_circle_green"
+                android:background="@drawable/color_picker_item"
+                android:padding="4dp"
+                android:contentDescription="绿色" />
+
+            <!-- 黄色 -->
+            <ImageView
+                android:id="@+id/color_yellow"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/color_circle_yellow"
+                android:background="@drawable/color_picker_item"
+                android:padding="4dp"
+                android:contentDescription="黄色" />
+
+            <!-- 紫色 -->
+            <ImageView
+                android:id="@+id/color_purple"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/color_circle_purple"
+                android:background="@drawable/color_picker_item"
+                android:padding="4dp"
+                android:contentDescription="紫色" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 确定和取消按钮 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textColor="#666666"
+            android:background="@android:drawable/btn_default"
+            android:layout_marginRight="12dp" />
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/confirm_button" />
+    </LinearLayout>
+</LinearLayout>

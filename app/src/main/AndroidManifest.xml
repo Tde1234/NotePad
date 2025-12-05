@@ -98,11 +98,25 @@
                      working with this type of data. -->
                 <category android:name="android.intent.category.ALTERNATIVE" />
                 <!-- SELECTED_ALTERNATIVE: show as an alternative action the user
-                     can perform when selecting this type of data. -->
+                     has already selected. -->
                 <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
-                <!-- This is the data type we operate on. -->
+                <!-- This type of data we can operate on. -->
                 <data android:mimeType="vnd.android.cursor.item/vnd.google.note" />
             </intent-filter>
+        </activity>
+
+        <!-- Todo List Activity -->
+        <activity android:name="TodoList"
+            android:label="待办清单"
+            android:theme="@style/Theme.AppCompat.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CategoryManager" 
+            android:label="@string/title_category_manager"
+            android:theme="@style/Theme.AppCompat.Light">
         </activity>
 
         <activity android:name="NotesLiveFolder" android:label="@string/live_folder_name"

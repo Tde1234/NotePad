@@ -6,10 +6,20 @@
           android:title="@string/menu_add"
           android:alphabeticShortcut='a'
           android:showAsAction="always" />
+    <!--  Search button for finding notes -->
+    <item android:id="@+id/menu_search"
+          android:icon="@android:drawable/ic_menu_search"
+          android:title="@string/menu_search"
+          android:alphabeticShortcut='s'
+          android:showAsAction="ifRoom" />
     <!--  If there is currently data in the clipboard, this adds a PASTE menu item to the menu
           so that the user can paste in the data.. -->
     <item android:id="@+id/menu_paste"
           android:icon="@drawable/ic_menu_compose"
           android:title="@string/menu_paste"
           android:alphabeticShortcut='p' />
+    <!--  Background color toggle menu item -->
+    <item android:id="@+id/menu_toggle_background"
+          android:icon="@android:drawable/ic_menu_edit"
+          android:title="切换背景色" />
 </menu>

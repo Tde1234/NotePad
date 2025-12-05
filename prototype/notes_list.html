@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NotePad - 笔记列表</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind CSS自定义主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#64748b',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        info: '#3b82f6',
+                        category1: '#f472b6',
+                        category2: '#60a5fa',
+                        category3: '#34d399',
+                        category4: '#fbbf24'
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .todo-checkbox {
+                @apply w-5 h-5 rounded-full border-2 flex items-center justify-center;
+            }
+            .category-pill {
+                @apply text-xs px-2 py-0.5 rounded-full;
+            }
+            .line-through {
+                text-decoration: line-through;
+            }
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+    <!-- 顶部状态栏 -->
+    <div class="bg-primary text-white p-3 flex justify-between items-center shadow-md">
+        <h1 class="text-xl font-bold">笔记</h1>
+        <div class="flex space-x-4">
+            <button id="categoryBtn" class="p-2 rounded-full hover:bg-blue-700 transition-colors">
+                <i class="fa fa-folder"></i>
+            </button>
+            <button id="sortBtn" class="p-2 rounded-full hover:bg-blue-700 transition-colors">
+                <i class="fa fa-sort"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 搜索栏 -->
+    <div class="px-4 py-3 bg-white">
+        <div class="relative">
+            <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                <i class="fa fa-search"></i>
+            </span>
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="搜索笔记..." 
+                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary/50"
+            >
+            <button id="clearSearchBtn" class="absolute inset-y-0 right-3 flex items-center text-gray-400 hidden">
+                <i class="fa fa-times-circle"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 分类筛选条 -->
+    <div class="px-4 py-2 bg-white border-b border-gray-200">
+        <div class="flex space-x-2 overflow-x-auto no-scrollbar pb-2">
+            <button class="category-pill bg-primary text-white whitespace-nowrap">全部</button>
+            <button class="category-pill bg-category1 text-white whitespace-nowrap">工作</button>
+            <button class="category-pill bg-category2 text-white whitespace-nowrap">学习</button>
+            <button class="category-pill bg-category3 text-white whitespace-nowrap">生活</button>
+            <button class="category-pill bg-category4 text-white whitespace-nowrap">旅行</button>
+            <button class="category-pill bg-gray-200 text-gray-700 whitespace-nowrap">未分类</button>
+        </div>
+    </div>
+    
+    <!-- 笔记列表 -->
+    <div id="notesList" class="p-4 space-y-4">
+        <!-- 普通笔记示例 -->
+        <div class="note-item bg-white rounded-lg shadow-sm p-4 flex items-start cursor-pointer hover:shadow-md transition-shadow">
+            <div class="flex-1">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-medium text-lg">会议记录</h3>
+                    <span class="category-pill bg-category1 text-white">工作</span>
+                </div>
+                <p class="text-gray-500 text-sm mt-1">2023-06-15 14:30:22</p>
+            </div>
+        </div>
+        
+        <!-- 待办笔记示例（未完成） -->
+        <div class="note-item bg-white rounded-lg shadow-sm p-4 flex items-start cursor-pointer hover:shadow-md transition-shadow">
+            <div class="todo-checkbox border-primary mr-3 mt-1"></div>
+            <div class="flex-1">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-medium text-lg">购买日用品</h3>
+                    <span class="category-pill bg-category3 text-white">生活</span>
+                </div>
+                <p class="text-gray-500 text-sm mt-1">2023-06-15 10:15:00</p>
+            </div>
+        </div>
+        
+        <!-- 待办笔记示例（已完成） -->
+        <div class="note-item bg-white rounded-lg shadow-sm p-4 flex items-start cursor-pointer hover:shadow-md transition-shadow">
+            <div class="todo-checkbox bg-primary border-primary mr-3 mt-1 text-white">
+                <i class="fa fa-check text-xs"></i>
+            </div>
+            <div class="flex-1">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-medium text-lg text-gray-500 line-through">完成项目报告</h3>
+                    <span class="category-pill bg-category1 text-white">工作</span>
+                </div>
+                <p class="text-gray-500 text-sm mt-1">2023-06-14 16:45:33</p>
+            </div>
+        </div>
+        
+        <!-- 其他笔记示例 -->
+        <div class="note-item bg-white rounded-lg shadow-sm p-4 flex items-start cursor-pointer hover:shadow-md transition-shadow">
+            <div class="flex-1">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-medium text-lg">学习计划</h3>
+                    <span class="category-pill bg-category2 text-white">学习</span>
+                </div>
+                <p class="text-gray-500 text-sm mt-1">2023-06-13 09:20:15</p>
+            </div>
+        </div>
+        
+        <div class="note-item bg-white rounded-lg shadow-sm p-4 flex items-start cursor-pointer hover:shadow-md transition-shadow">
+            <div class="todo-checkbox border-primary mr-3 mt-1"></div>
+            <div class="flex-1">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-medium text-lg">预订机票</h3>
+                    <span class="category-pill bg-category4 text-white">旅行</span>
+                </div>
+                <p class="text-gray-500 text-sm mt-1">2023-06-12 21:10:08</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部添加按钮 -->
+    <div class="fixed bottom-6 right-6">
+        <button id="addNoteBtn" class="w-14 h-14 rounded-full bg-primary text-white shadow-lg flex items-center justify-center text-2xl hover:bg-blue-700 transition-colors">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+    
+    <!-- 分类管理浮层 -->
+    <div id="categoryModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg w-full max-w-sm shadow-xl">
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-bold">分类管理</h3>
+                <button id="closeCategoryModal" class="p-1 text-gray-500 hover:text-gray-700">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="p-4 max-h-80 overflow-y-auto">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-primary mr-3"></div>
+                            <span>全部</span>
+                        </div>
+                        <span class="text-gray-400">10</span>
+                    </div>
+                    <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-category1 mr-3"></div>
+                            <span>工作</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-gray-400 hover:text-gray-700"><i class="fa fa-pencil"></i></button>
+                            <button class="text-gray-400 hover:text-danger"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-category2 mr-3"></div>
+                            <span>学习</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-gray-400 hover:text-gray-700"><i class="fa fa-pencil"></i></button>
+                            <button class="text-gray-400 hover:text-danger"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-category3 mr-3"></div>
+                            <span>生活</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-gray-400 hover:text-gray-700"><i class="fa fa-pencil"></i></button>
+                            <button class="text-gray-400 hover:text-danger"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-category4 mr-3"></div>
+                            <span>旅行</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-gray-400 hover:text-gray-700"><i class="fa fa-pencil"></i></button>
+                            <button class="text-gray-400 hover:text-danger"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-gray-200">
+                <button id="addCategoryBtn" class="w-full py-2 bg-gray-100 text-primary rounded-lg font-medium hover:bg-gray-200 transition-colors">
+                    <i class="fa fa-plus mr-2"></i>添加分类
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 添加分类浮层 -->
+    <div id="addCategoryModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg w-full max-w-sm shadow-xl">
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-bold">添加分类</h3>
+                <button id="closeAddCategoryModal" class="p-1 text-gray-500 hover:text-gray-700">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">分类名称</label>
+                    <input type="text" id="categoryName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">选择颜色</label>
+                    <div class="grid grid-cols-5 gap-2">
+                        <button class="w-8 h-8 rounded-full bg-red-500 border-2 border-transparent hover:border-gray-300 color-option"></button>
+                        <button class="w-8 h-8 rounded-full bg-orange-500 border-2 border-transparent hover:border-gray-300 color-option"></button>
+                        <button class="w-8 h-8 rounded-full bg-yellow-500 border-2 border-transparent hover:border-gray-300 color-option"></button>
+                        <button class="w-8 h-8 rounded-full bg-green-500 border-2 border-transparent hover:border-gray-300 color-option"></button>
+                        <button class="w-8 h-8 rounded-full bg-blue-500 border-2 border-transparent hover:border-gray-300 color-option"></button>
+                        <button class="w-8 h-8 rounded-full bg-indigo-500 border-2 border-transparent hover:border-gray-300 color-option"></button>
+                        <button class="w-8 h-8 rounded-full bg-purple-500 border-2 border-transparent hover:border-gray-300 color-option"></button>
+                        <button class="w-8 h-8 rounded-full bg-pink-500 border-2 border-transparent hover:border-gray-300 color-option"></button>
+                        <button class="w-8 h-8 rounded-full bg-gray-500 border-2 border-transparent hover:border-gray-300 color-option"></button>
+                        <button class="w-8 h-8 rounded-full bg-gray-300 border-2 border-transparent hover:border-gray-300 color-option"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-gray-200 flex space-x-3">
+                <button id="cancelAddCategoryBtn" class="flex-1 py-2 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors">取消</button>
+                <button id="confirmAddCategoryBtn" class="flex-1 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">确定</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript交互逻辑 -->
+    <script>
+        // 搜索功能
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const notesList = document.getElementById('notesList');
+        const noteItems = document.querySelectorAll('.note-item');
+        
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            if (searchTerm) {
+                clearSearchBtn.classList.remove('hidden');
+                // 模拟搜索逻辑
+                noteItems.forEach(item => {
+                    const title = item.querySelector('h3').textContent.toLowerCase();
+                    if (title.includes(searchTerm)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            } else {
+                clearSearchBtn.classList.add('hidden');
+                noteItems.forEach(item => {
+                    item.style.display = 'flex';
+                });
+            }
+        });
+        
+        clearSearchBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            this.classList.add('hidden');
+            noteItems.forEach(item => {
+                item.style.display = 'flex';
+            });
+        });
+        
+        // 笔记点击事件 - 跳转到编辑页面
+        noteItems.forEach(item => {
+            item.addEventListener('click', function() {
+                window.location.href = 'note_editor.html';
+            });
+        });
+        
+        // 待办复选框点击事件（阻止冒泡）
+        const todoCheckboxes = document.querySelectorAll('.todo-checkbox');
+        todoCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isChecked = this.classList.contains('bg-primary');
+                const titleElement = this.parentElement.querySelector('h3');
+                
+                if (isChecked) {
+                    // 取消选中
+                    this.classList.remove('bg-primary');
+                    this.innerHTML = '';
+                    titleElement.classList.remove('text-gray-500', 'line-through');
+                } else {
+                    // 选中
+                    this.classList.add('bg-primary');
+                    this.innerHTML = '<i class="fa fa-check text-xs"></i>';
+                    titleElement.classList.add('text-gray-500', 'line-through');
+                }
+            });
+        });
+        
+        // 添加笔记按钮点击事件
+        document.getElementById('addNoteBtn').addEventListener('click', function() {
+            window.location.href = 'note_editor.html';
+        });
+        
+        // 分类按钮点击事件
+        document.getElementById('categoryBtn').addEventListener('click', function() {
+            document.getElementById('categoryModal').classList.remove('hidden');
+        });
+        
+        // 关闭分类浮层
+        document.getElementById('closeCategoryModal').addEventListener('click', function() {
+            document.getElementById('categoryModal').classList.add('hidden');
+        });
+        
+        // 添加分类按钮点击事件
+        document.getElementById('addCategoryBtn').addEventListener('click', function() {
+            document.getElementById('categoryModal').classList.add('hidden');
+            document.getElementById('addCategoryModal').classList.remove('hidden');
+        });
+        
+        // 关闭添加分类浮层
+        document.getElementById('closeAddCategoryModal').addEventListener('click', closeAddCategoryModal);
+        document.getElementById('cancelAddCategoryBtn').addEventListener('click', closeAddCategoryModal);
+        
+        function closeAddCategoryModal() {
+            document.getElementById('addCategoryModal').classList.add('hidden');
+        }
+        
+        // 颜色选择
+        const colorOptions = document.querySelectorAll('.color-option');
+        colorOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                colorOptions.forEach(opt => opt.classList.remove('ring-2', 'ring-primary'));
+                this.classList.add('ring-2', 'ring-primary');
+            });
+        });
+        
+        // 确认添加分类
+        document.getElementById('confirmAddCategoryBtn').addEventListener('click', function() {
+            const categoryName = document.getElementById('categoryName').value;
+            if (categoryName) {
+                // 这里可以添加分类创建逻辑
+                alert('分类 "' + categoryName + '" 创建成功！');
+                closeAddCategoryModal();
+                document.getElementById('categoryName').value = '';
+            } else {
+                alert('请输入分类名称');
+            }
+        });
+    </script>
+</body>
+</html>

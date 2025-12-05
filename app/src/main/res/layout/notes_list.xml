@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+
+    
+    <!-- Enhanced top功能栏 with search, create note, and todo toggle -->
+    <LinearLayout
+        android:id="@+id/top_function_bar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center"
+        android:divider="@android:drawable/divider_horizontal_dark"
+        android:showDividers="middle">
+        
+        <!-- Search button -->
+        <LinearLayout
+            android:id="@+id/search_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@android:drawable/btn_default">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_menu_search"
+                android:tint="@android:color/holo_blue_dark" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="搜索笔记"
+                android:layout_marginTop="4dp"
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+        
+        <!-- Create note button -->
+        <LinearLayout
+            android:id="@+id/create_note_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@android:drawable/btn_default">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_menu_compose"
+                android:tint="@android:color/holo_green_dark" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="新建笔记"
+                android:layout_marginTop="4dp"
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+        
+        <!-- Todo toggle button -->
+        <LinearLayout
+            android:id="@+id/todo_toggle_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@android:drawable/btn_default">
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_menu_today"
+                android:tint="@android:color/holo_orange_dark" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="待办事项"
+                android:layout_marginTop="4dp"
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    <!-- Category filter buttons will be added programmatically here -->
+    <LinearLayout
+        android:id="@+id/category_filter_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+        <!-- Category buttons will be added here dynamically -->
+    </LinearLayout>
+    
+    <!-- Main list view for notes -->
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
+    
+    <!-- Empty view to show when there are no notes -->
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No notes yet" />
+        
+    <!-- Note item layout references -->
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+        
+    <TextView
+        android:id="@+id/category_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+</LinearLayout>
