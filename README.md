@@ -83,6 +83,7 @@ adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
 
 #### 1.3 实现效果界面截图
 - **标题**：笔记列表时间戳显示效果
+  <img src="./运行结果截图/时间戳功能实现.png" width="600" alt="笔记列表时间戳显示效果" />
 
 ### 2.笔记查询功能
 
@@ -176,6 +177,7 @@ searchButton.setOnClickListener(new View.OnClickListener() {
 
 #### 2.3 实现效果界面截图
 - **标题**：笔记搜索功能效果
+  <img src="./运行结果截图/笔记关键词搜索.png" width="600" alt="笔记搜索功能效果" />
 
 ## 三.拓展附加功能
 
@@ -278,7 +280,14 @@ private void filterByCategory(long categoryId) {
 
 #### 1.3 实现效果界面截图
 - **标题**：笔记分类管理界面
+  <img src="./运行结果截图/分类管理1.png" width="600" alt="分类管理1" />
+  <img src="./运行结果截图/分类管理2.png" width="600" alt="分类管理2" />
+  <img src="./运行结果截图/分类管理3.png" width="600" alt="分类管理3" />
+  <img src="./运行结果截图/分类管理4.png" width="600" alt="分类管理4" />
 - **标题**：笔记分类过滤效果
+  <img src="./运行结果截图/分类过滤1.png" width="600" alt="分类过滤1" />
+  <img src="./运行结果截图/分类过滤2.png" width="600" alt="分类过滤2" />
+  <img src="./运行结果截图/分类过滤3.png" width="600" alt="分类过滤3" />
 
 ### 2.添加代办功能
 
@@ -351,6 +360,8 @@ private void updateNoteCompletionStatus(long noteId, boolean completed) {
 
 #### 2.3 实现效果界面截图
 - **标题**：待办事项功能效果
+  <img src="./运行结果截图/待办事项.png" width="600" alt="待办事项功能效果" />
+  <img src="./运行结果截图/笔记代办.png" width="600" alt="笔记代办效果" />
 
 ### 3.UI美化
 
@@ -402,7 +413,10 @@ private void setNoteBackgroundColor(long noteId, int colorResId) {
 
 #### 3.3 实现效果界面截图
 - **标题**：应用主题切换效果
+  <img src="./运行结果截图/笔记列表.png" width="600" alt="应用主题切换效果" />
 - **标题**：笔记背景颜色设置界面
+  <img src="./运行结果截图/背景颜色更改.png" width="600" alt="背景颜色更改" />
+  <img src="./运行结果截图/背景颜色更改1.png" width="600" alt="背景颜色更改1" />
 
 ## 四.技术总结
 
